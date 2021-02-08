@@ -1,0 +1,32 @@
+
+<form #inputData="ngForm">
+  <div class="form-group">
+    <label for="mlvl">Nome</label>
+    <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="level">Level</label>
+    <input type="text" id="level" name="level" [(ngModel)]="userLogs.level" #level="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="mlvl">Magic Level</label>
+    <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl" #mlvl="ngModel">
+  </div>
+
+  <div class="form-group">
+    <label for="logs">Cole os logs abaixo:</label>
+    <br>
+    <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs">
+    </textarea>
+  </div>
+  <button class="btn btn-primary" (click)="parseLogs()">Gerar</button>
+</form>
+<p>
+  Heals
+</p>
+<table>
+  <tr *ngFor="let healing of userLogs.healings" style="border: 1px;">
+      <td>{{healing}}</td>
+  </tr>
+</table>
+
