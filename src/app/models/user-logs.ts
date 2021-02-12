@@ -1,4 +1,5 @@
 export class UserLogs {
+  public vocacao:string ="";
   public userName:string ="";
   public spellName:string ="";
   public level:number=0;

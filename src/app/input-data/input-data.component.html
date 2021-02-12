@@ -1,4 +1,8 @@
 <div class="form-group">
+  <label for="mlvl">Vocação</label>
+  <input type="text" id="voc" name="voc" [(ngModel)]="userLogs.vocacao" #nome="ngModel">
+</div>
+<div class="form-group">
   <label for="mlvl">Nome do Personagem</label>
   <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
 </div>
@@ -55,6 +59,50 @@
     Heals
   </p>
   <table id="excel-table">
+    <tr>
+      <td colspan="2">
+        Vocação
+      </td>
+      <td colspan="2">
+        Nome do Personagem
+      </td>
+      <td colspan="2">
+        Nome Magia
+      </td>
+      <td colspan="2">
+        Level
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        {{userLogs.vocacao}}
+      </td>
+      <td colspan="2">
+        {{userLogs.userName}}
+      </td>
+      <td colspan="2">
+        {{userLogs.spellName}}
+      </td>
+      <td colspan="2">
+        {{userLogs.level}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        ML
+      </td>
+      <td colspan="4">
+        ML
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        {{userLogs.mlvl}}
+      </td>
+      <td colspan="4">
+        {{userLogs.mlvl2}}
+      </td>
+    </tr>
     <tr>
       <td>
         Healing Máximo - ml {{this.userLogs.mlvl}}
