@@ -13,6 +13,7 @@ export class InputDataComponent implements OnInit {
   userLogs:UserLogs = new UserLogs();
   submitted = false;
   beforeAfter:Array<BeforeAfter> = [];
+  exurasio:boolean=false;
 
   constructor() { }
 
@@ -73,7 +74,11 @@ export class InputDataComponent implements OnInit {
     let rep=this.userLogs.logs2.replace(/^[0-9]{2}:[0-9]{2} ([^Y]|Y[^o]|Yo[^u]|You[^ ]|You [^h]|You h[^e]|You he[^a]).*/mg,"");
     rep = rep.replace(/^([A-Za-z].*)/mg,"");
 
-    rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./mg,"$1");
+    if(this.exurasio){
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal [A-Za-z ]+ for ([0-9]+) hitpoints./mg,"$1");
+    } else {
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./mg,"$1");
+    }
 
     const regex = /[0-9]+/g;
     let m;
