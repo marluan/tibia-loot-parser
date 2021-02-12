@@ -14,6 +14,8 @@ export class InputDataComponent implements OnInit {
   submitted = false;
   beforeAfter:Array<BeforeAfter> = [];
   exurasio:boolean=false;
+  vocations: Array<string> = ['Elite Knight','Royal Paladin','Elder Druid','Master Sorcerer'];
+  spells:Array<string> = ['Bruise Bane','Divine Healing','Fair Wound Cleansing','Heal Friend','Intense Healing','Intense Wound Cleansing','Light Healing','Mass Healing','Nature\'s Embrace','Restoration','Salvation','Ultimate Healing','Wound Cleansing'];
 
   constructor() { }
 
@@ -24,10 +26,14 @@ export class InputDataComponent implements OnInit {
 
   parseLogs() {
     this.userLogs.healings=[];
-    let rep=this.userLogs.logs.replace(/^[0-9]{2}:[0-9]{2} ([^Y]|Y[^o]|Yo[^u]|You[^ ]|You [^h]|You h[^e]|You he[^a]).*/mg,"");
-    rep = rep.replace(/^([A-Za-z].*)/mg,"");
+    let rep=this.userLogs.logs.replace(/^[0-9]{2}:[0-9]{2} ([^Y]|Y[^o]|Yo[^u]|You[^ ]|You [^h]|You h[^e]|You he[^a]).*/gm,"");
+    rep = rep.replace(/^([A-Za-z].*)/gm,"");
 
-    rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./mg,"$1");
+    if(this.exurasio){
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal [A-Za-z ]+ for ([0-9]+) hitpoints./gm,"$1");
+    } else {
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./gm,"$1");
+    }
 
     const regex = /[0-9]+/g;
     let m;
@@ -71,13 +77,13 @@ export class InputDataComponent implements OnInit {
 
   parseLogs2() {
     this.userLogs.healings2=[];
-    let rep=this.userLogs.logs2.replace(/^[0-9]{2}:[0-9]{2} ([^Y]|Y[^o]|Yo[^u]|You[^ ]|You [^h]|You h[^e]|You he[^a]).*/mg,"");
+    let rep=this.userLogs.logs2.replace(/^[0-9]{2}:[0-9]{2} ([^Y]|Y[^o]|Yo[^u]|You[^ ]|You [^h]|You h[^e]|You he[^a]).*/gm,"");
     rep = rep.replace(/^([A-Za-z].*)/mg,"");
 
     if(this.exurasio){
-      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal [A-Za-z ]+ for ([0-9]+) hitpoints./mg,"$1");
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal [A-Za-z ]+ for ([0-9]+) hitpoints./gm,"$1");
     } else {
-      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./mg,"$1");
+      rep = rep.replace(/^[0-9]{2}:[0-9]{2} You heal yourself for ([0-9]+) hitpoints./gm,"$1");
     }
 
     const regex = /[0-9]+/g;

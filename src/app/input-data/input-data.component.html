@@ -1,14 +1,18 @@
 <div class="form-group">
-  <label for="mlvl">Vocação</label>
-  <input type="text" id="voc" name="voc" [(ngModel)]="userLogs.vocacao" #nome="ngModel">
+  <label for="voc">Vocação</label>
+  <select [(ngModel)]="userLogs.vocacao" class="form-control">
+      <option *ngFor="let vc of vocations">{{vc}}</option>
+  </select>
 </div>
 <div class="form-group">
   <label for="mlvl">Nome do Personagem</label>
   <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
 </div>
 <div class="form-group">
-  <label for="mlvl">Nome Magia</label>
-  <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.spellName" #nome="ngModel">
+  <label for="nome">Nome Magia</label>
+  <select [(ngModel)]="userLogs.spellName" id="nome" name="nome">
+      <option *ngFor="let spell of spells">{{spell}}</option>
+  </select>
   <input type="checkbox" id="exurasio" name="exurasio" [(ngModel)]="exurasio">
   <label for="exurasio">é exura sio</label>
 </div>
@@ -63,10 +67,10 @@
       <td colspan="2">
         Vocação
       </td>
-      <td colspan="2">
+      <td colspan="3">
         Nome do Personagem
       </td>
-      <td colspan="2">
+      <td colspan="3">
         Nome Magia
       </td>
       <td colspan="2">
@@ -77,10 +81,10 @@
       <td colspan="2">
         {{userLogs.vocacao}}
       </td>
-      <td colspan="2">
+      <td colspan="3">
         {{userLogs.userName}}
       </td>
-      <td colspan="2">
+      <td colspan="3">
         {{userLogs.spellName}}
       </td>
       <td colspan="2">
@@ -88,45 +92,51 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4">
+      <td colspan="5">
         ML
       </td>
-      <td colspan="4">
+      <td colspan="5">
         ML
       </td>
     </tr>
     <tr>
-      <td colspan="4">
+      <td colspan="5">
         {{userLogs.mlvl}}
       </td>
-      <td colspan="4">
+      <td colspan="5">
         {{userLogs.mlvl2}}
       </td>
     </tr>
     <tr>
       <td>
-        Healing Máximo - ml {{this.userLogs.mlvl}}
+        Healing Máximo
       </td>
       <td>
-        Healing Mínimo - ml {{this.userLogs.mlvl}}
+        Healing Mínimo
       </td>
       <td>
-        Healing Médio - ml {{this.userLogs.mlvl}}
+        Healing Médio
       </td>
       <td>
-        Qtd. Heals - ml {{this.userLogs.mlvl}}
+        Healing Médiana
       </td>
       <td>
-        Healing Máximo - ml {{this.userLogs.mlvl2}}
+        Qtd. Heals
       </td>
       <td>
-        Healing Mínimo - ml {{this.userLogs.mlvl2}}
+        Healing Máximo
       </td>
       <td>
-        Healing Médio - ml {{this.userLogs.mlvl2}}
+        Healing Mínimo
       </td>
       <td>
-        Qtd. Heals - ml {{this.userLogs.mlvl2}}
+        Healing Médio
+      </td>
+      <td>
+        Healing Médiana
+      </td>
+      <td>
+        Qtd. Heals
       </td>
     </tr>
     <tr>
@@ -138,6 +148,9 @@
       </td>
       <td>
         {{getAvg()}}
+      </td>
+      <td>
+        {{(userLogs.healMin + userLogs.healMax)/2}}
       </td>
       <td>
         {{userLogs.healings.length}}
@@ -152,25 +165,28 @@
         {{getAvg2()}}
       </td>
       <td>
+        {{(userLogs.healMin2 + userLogs.healMax2)/2}}
+      </td>
+      <td>
         {{userLogs.healings2.length}}
       </td>
     </tr>
     <tr>
       <td colspan="2">Diferença ml</td>
-      <td colspan="3">Cura minima por ml</td>
-      <td colspan="3">Cura máxima por ml</td>
+      <td colspan="4">Cura minima por ml</td>
+      <td colspan="4">Cura máxima por ml</td>
     </tr>
     <tr>
       <td colspan="2">{{this.userLogs.mlvl2 - this.userLogs.mlvl}}</td>
-      <td colspan="3">{{(userLogs.healMin2 - userLogs.healMin)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
-      <td colspan="3">{{(userLogs.healMax2 - userLogs.healMax)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
+      <td colspan="4">{{(userLogs.healMin2 - userLogs.healMin)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
+      <td colspan="4">{{(userLogs.healMax2 - userLogs.healMax)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
     </tr>
     <tr>
-      <td colspan="8" style="text-align: center;"> Healing History</td>
+      <td colspan="10" style="text-align: center;"> Healing History</td>
     </tr>
     <tr *ngFor="let healing of beforeAfter">
-        <td colspan="4">{{ healing.before }}</td>
-        <td colspan="4">{{ healing.after }}</td>
+        <td colspan="5">{{ healing.before }}</td>
+        <td colspan="5">{{ healing.after }}</td>
     </tr>
   </table>
 
