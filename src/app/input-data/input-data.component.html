@@ -1,58 +1,127 @@
-
-<div>
-  <div class="form-group">
-    <label for="mlvl">Nome Magia</label>
-    <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
-  </div>
-  <div class="form-group">
-    <label for="level">Level</label>
-    <input type="text" id="level" name="level" [(ngModel)]="userLogs.level" #level="ngModel">
-  </div>
-  <div class="form-group">
-    <label for="mlvl">Magic Level</label>
-    <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl" #mlvl="ngModel">
-  </div>
-
-  <div class="form-group">
-    <label for="logs">Cole os logs abaixo:</label>
-    <br>
-    <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs">
-    </textarea>
-  </div>
-  <button class="btn btn-primary" (click)="parseLogs()">Gerar</button>
+<div class="form-group">
+  <label for="mlvl">Nome do Personagem</label>
+  <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
 </div>
-<p>
-  Heals
-</p>
-<table>
-  <tr>
-    <td>
-      Healing Máximo
-    </td>
-    <td>
-      Healing Mínimo
-    </td>
-    <td>
-      Healing Médio
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{healMax}}
-    </td>
-    <td>
-      {{healMin}}
-    </td>
-    <td>
-      {{getAvg()}}
-    </td>
-  </tr>
-</table>
-<h2>Healing History</h2>
-<table style="border: 1px;" *ngIf="userLogs.healings">
-  <tr *ngFor="let healing of userLogs.healings">
-      <td>{{ healing }}</td>
-  </tr>
-</table>
+<div class="form-group">
+  <label for="mlvl">Nome Magia</label>
+  <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.spellName" #nome="ngModel">
+</div>
+<div class="form-group">
+  <label for="level">Level</label>
+  <input type="text" id="level" name="level" [(ngModel)]="userLogs.level" #level="ngModel">
+</div>
+<div id="wrapper">
+  <div id="left">
+    <div>
+      <div>
+        <p>Neste bloco você testará o healing do personagem sem utilizar itens que aumentem o seu magic level</p>
+      <div class="form-group">
+        <label for="mlvl">Magic Level</label>
+        <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl" #mlvl="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="logs">Cole os logs abaixo:</label>
+        <br>
+        <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs">
+        </textarea>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div id="right">
+    <div>
+      <div>
+      <p>Neste bloco voce deverá testar as curas do seu personagem utilizando itens adicionando magic level.</p>
+      <div class="form-group">
+        <label for="mlvl">Magic Level</label>
+        <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl2" #mlvl="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="logs">Cole os logs abaixo:</label>
+        <br>
+        <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs2">
+        </textarea>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<button class="btn btn-primary" (click)="generateTable()">Gerar</button>
+  <button class="btn btn-primary" (click)="exportExcel()">Gerar Excel</button>
+  <p>
+    Heals
+  </p>
+  <table id="excel-table">
+    <tr>
+      <td>
+        Healing Máximo - ml {{this.userLogs.mlvl}}
+      </td>
+      <td>
+        Healing Mínimo - ml {{this.userLogs.mlvl}}
+      </td>
+      <td>
+        Healing Médio - ml {{this.userLogs.mlvl}}
+      </td>
+      <td>
+        Qtd. Heals - ml {{this.userLogs.mlvl}}
+      </td>
+      <td>
+        Healing Máximo - ml {{this.userLogs.mlvl2}}
+      </td>
+      <td>
+        Healing Mínimo - ml {{this.userLogs.mlvl2}}
+      </td>
+      <td>
+        Healing Médio - ml {{this.userLogs.mlvl2}}
+      </td>
+      <td>
+        Qtd. Heals - ml {{this.userLogs.mlvl2}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{userLogs.healMax}}
+      </td>
+      <td>
+        {{userLogs.healMin}}
+      </td>
+      <td>
+        {{getAvg()}}
+      </td>
+      <td>
+        {{userLogs.healings.length}}
+      </td>
+      <td>
+        {{userLogs.healMax2}}
+      </td>
+      <td>
+        {{userLogs.healMin2}}
+      </td>
+      <td>
+        {{getAvg2()}}
+      </td>
+      <td>
+        {{userLogs.healings2.length}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">Diferença ml</td>
+      <td colspan="3">Cura minima por ml</td>
+      <td colspan="3">Cura máxima por ml</td>
+    </tr>
+    <tr>
+      <td colspan="2">{{this.userLogs.mlvl2 - this.userLogs.mlvl}}</td>
+      <td colspan="3">{{userLogs.healMin2 - userLogs.healMin}}</td>
+      <td colspan="3">{{userLogs.healMax2 - userLogs.healMax}}</td>
+    </tr>
+    <tr>
+      <td colspan="8" style="text-align: center;"> Healing History</td>
+    </tr>
+    <tr *ngFor="let healing of beforeAfter">
+        <td colspan="4">{{ healing.before }}</td>
+        <td colspan="4">{{ healing.after }}</td>
+    </tr>
+  </table>
 
 

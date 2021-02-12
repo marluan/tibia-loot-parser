@@ -6,6 +6,7 @@
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
+  overflow-y: auto;
   width: 100%;
 }
 
@@ -17,4 +18,16 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+#wrapper {
+  display: flex;
+}
+
+#left {
+  flex: 0 0 50%;
+}
+
+#right {
+  flex: 1;
 }
