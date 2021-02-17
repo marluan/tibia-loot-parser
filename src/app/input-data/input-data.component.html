@@ -1,56 +1,12 @@
-<div class="form-group">
-  <label for="voc">Vocação</label>
-  <select [(ngModel)]="userLogs.vocacao" class="form-control">
-      <option *ngFor="let vc of vocations">{{vc}}</option>
-  </select>
-</div>
-<div class="form-group">
-  <label for="mlvl">Nome do Personagem</label>
-  <input type="text" id="nome" name="nome" [(ngModel)]="userLogs.userName" #nome="ngModel">
-</div>
-<div class="form-group">
-  <label for="nome">Nome Magia</label>
-  <select [(ngModel)]="userLogs.spellName" id="nome" name="nome">
-      <option *ngFor="let spell of spells">{{spell}}</option>
-  </select>
-  <input type="checkbox" id="exurasio" name="exurasio" [(ngModel)]="exurasio">
-  <label for="exurasio">é exura sio</label>
-</div>
-<div class="form-group">
-  <label for="level">Level</label>
-  <input type="text" id="level" name="level" [(ngModel)]="userLogs.level" #level="ngModel">
-</div>
+
 <div id="wrapper">
   <div id="left">
     <div>
       <div>
-        <p>Neste bloco você testará o healing do personagem sem utilizar itens que aumentem o seu magic level</p>
       <div class="form-group">
-        <label for="mlvl">Magic Level</label>
-        <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl" #mlvl="ngModel">
-      </div>
-      <div class="form-group">
-        <label for="logs">Cole os logs abaixo:</label>
+        <label for="logs">Cole os logs de loot na caixa abaixo:</label>
         <br>
-        <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs">
-        </textarea>
-      </div>
-    </div>
-    </div>
-  </div>
-  <div id="right">
-    <div>
-      <div>
-      <p>Neste bloco voce deverá testar as curas do seu personagem utilizando itens adicionando magic level.</p>
-      <div class="form-group">
-        <label for="mlvl">Magic Level</label>
-        <input type="text" id="mlvl" name="mlvl" [(ngModel)]="userLogs.mlvl2" #mlvl="ngModel">
-      </div>
-
-      <div class="form-group">
-        <label for="logs">Cole os logs abaixo:</label>
-        <br>
-        <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="userLogs.logs2">
+        <textarea class="logs-output" id="logs" name="logs" [(ngModel)]="lootLogs">
         </textarea>
       </div>
     </div>
@@ -59,135 +15,22 @@
 </div>
 <button class="btn btn-primary" (click)="generateTable()">Gerar</button>
   <button class="btn btn-primary" (click)="exportExcel()">Gerar Excel</button>
-  <p>
-    Heals
-  </p>
-  <table id="excel-table">
-    <tr>
-      <td colspan="2">
-        Vocação
-      </td>
-      <td colspan="3">
-        Nome do Personagem
-      </td>
-      <td colspan="3">
-        Nome Magia
-      </td>
-      <td colspan="2">
-        Level
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        {{userLogs.vocacao}}
-      </td>
-      <td colspan="3">
-        {{userLogs.userName}}
-      </td>
-      <td colspan="3">
-        {{userLogs.spellName}}
-      </td>
-      <td colspan="2">
-        {{userLogs.level}}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        ML
-      </td>
-      <td colspan="5">
-        ML
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        {{userLogs.mlvl}}
-      </td>
-      <td colspan="5">
-        {{userLogs.mlvl2}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Healing Máximo
-      </td>
-      <td>
-        Healing Mínimo
-      </td>
-      <td>
-        Healing Médio
-      </td>
-      <td>
-        Healing Médiana
-      </td>
-      <td>
-        Qtd. Heals
-      </td>
-      <td>
-        Healing Máximo
-      </td>
-      <td>
-        Healing Mínimo
-      </td>
-      <td>
-        Healing Médio
-      </td>
-      <td>
-        Healing Médiana
-      </td>
-      <td>
-        Qtd. Heals
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{userLogs.healMax}}
-      </td>
-      <td>
-        {{userLogs.healMin}}
-      </td>
-      <td>
-        {{getAvg()}}
-      </td>
-      <td>
-        {{(userLogs.healMin + userLogs.healMax)/2}}
-      </td>
-      <td>
-        {{userLogs.healings.length}}
-      </td>
-      <td>
-        {{userLogs.healMax2}}
-      </td>
-      <td>
-        {{userLogs.healMin2}}
-      </td>
-      <td>
-        {{getAvg2()}}
-      </td>
-      <td>
-        {{(userLogs.healMin2 + userLogs.healMax2)/2}}
-      </td>
-      <td>
-        {{userLogs.healings2.length}}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">Diferença ml</td>
-      <td colspan="4">Cura minima por ml</td>
-      <td colspan="4">Cura máxima por ml</td>
-    </tr>
-    <tr>
-      <td colspan="2">{{this.userLogs.mlvl2 - this.userLogs.mlvl}}</td>
-      <td colspan="4">{{(userLogs.healMin2 - userLogs.healMin)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
-      <td colspan="4">{{(userLogs.healMax2 - userLogs.healMax)/(this.userLogs.mlvl2 - this.userLogs.mlvl)}}</td>
-    </tr>
-    <tr>
-      <td colspan="10" style="text-align: center;"> Healing History</td>
-    </tr>
-    <tr *ngFor="let healing of beforeAfter">
-        <td colspan="5">{{ healing.before }}</td>
-        <td colspan="5">{{ healing.after }}</td>
-    </tr>
-  </table>
+  <div *ngFor="let line of lootLogsMap.values()">
+    <br>
+    <h2>{{line.qtd}} {{line.creature}}(s) mortos</h2>
+    <table id="excel-table">
+      <tr>
+        <td>Loot</td>
+        <td>Quantidade</td>
+        <td>Valor</td>
+      </tr>
+      <tr *ngFor="let loot of line.itens.values()">
+        <td>{{loot.item}}</td>
+        <td>{{loot.qtd}}</td>
+        <td>{{loot.goldValue}}</td>
+      </tr>
+    </table>
+  </div>
+
 
 
