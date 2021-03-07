@@ -34,6 +34,22 @@ export class InputDataComponent implements OnInit {
       if(currentLoot.match(/^[0-9]{2}:[0-9]{2} Loot of ([A-Za-z ]+):(([0-9 ]+[A-Za-z ]+,?)+)/gm)){
         creature=currentLoot.replace(/^[0-9]{2}:[0-9]{2} Loot of (a )?([A-Za-z ]+):(([0-9 ]+[A-Za-z ]+,?)+)/gm,"$2");
         itens=currentLoot.replace(/^[0-9]{2}:[0-9]{2} Loot of ([A-Za-z ]+):(([0-9 ]+[A-Za-z ]+,?)+)/gm,"$2");
+        this.parseLootItem(creature,itens);
+      } else if (currentLoot.match(/^[0-9]{2}:[0-9]{2} Your deeds have been noticed and the following items dropped by ([A-Za-z ]+) are available in your reward chest:(([0-9 ]+[A-Za-z ]+,?)+)/gm)) {
+        creature=currentLoot.replace(/^[0-9]{2}:[0-9]{2} Your deeds have been noticed and the following items dropped by ([A-Za-z ]+) are available in your reward chest:(([0-9 ]+[A-Za-z ]+,?)+)/gm,"$1");
+        itens=currentLoot.replace(/^[0-9]{2}:[0-9]{2} Your deeds have been noticed and the following items dropped by ([A-Za-z ]+) are available in your reward chest:(([0-9 ]+[A-Za-z ]+,?)+)/gm,"$2");
+        this.parseLootItem(creature,itens);
+      }
+
+    });
+
+  }
+
+  generateTable() {
+    this.parseLogs();
+  }
+
+  parseLootItem(creature:string,itens:string){
         let lootBag:LootLogs=this.lootLogsMap.get(creature)||new LootLogs();
 
         let itensList=itens.split(/,/);
@@ -67,16 +83,7 @@ export class InputDataComponent implements OnInit {
             this.lootLogsMap.set(creature,lootBag);
         });
         lootBag.qtd+=1;
-      }
-    });
-
   }
-
-  generateTable() {
-    this.parseLogs();
-  }
-
-
 
   exportExcel() {
     //this.fileName=this.userLogs.userName+"_"+this.userLogs.spellName+"_"+"_lvl_"+this.userLogs.level+".xlsx";
